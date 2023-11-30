@@ -1,21 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
 
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const getAllUsers = JSON.parse(localStorage.getItem("users")) || [];
+    setAllUsers(getAllUsers);
+  }, []);
+
+  // console.log(allUsers);
+
+  const handleLogin = (e) => {
+    try {
+      e.preventDefault();
+
+      let userExists = allUsers.find((user) => {
+        return (
+          user.email === email &&
+          +user.password == password &&
+          user.username &&
+          user.favMovies
+        );
+      });
+
+      // console.log(userExists, ">> userExists");
+
+      if (userExists) {
+        alert("Login successfull!");
+        localStorage.setItem("logedInUser", JSON.stringify(userExists));
+        navigate("/");
+      } else {
+        alert("Invalid credentials!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
       <h1>Login</h1>
-      <form action="">
-        {/* <label htmlFor="">
-          Username
-          <input type="text" onChange={(e) => setUsername(e.target.value)} />
-        </label>
-        <br /> */}
+      <form action="" onSubmit={handleLogin}>
         <label htmlFor="">
           Email
           <input type="email" onChange={(e) => setEmail(e.target.value)} />

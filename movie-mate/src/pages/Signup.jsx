@@ -21,7 +21,8 @@ const Signup = () => {
 
   //   console.log(allUsers);
 
-  const handleSignUp = () => {
+  const handleSignUp = (e) => {
+    e.preventDefault();
     try {
       let userName = allUsers.find((user) => user.username == username);
       let userEmail = allUsers.find((user) => user.email == email);
@@ -38,36 +39,40 @@ const Signup = () => {
 
       if (!userName && !userEmail) {
         localStorage.setItem("users", JSON.stringify([...allUsers, newUser]));
+        setSignup(true);
       }
     } catch (error) {
       console.log(error);
     }
-    // const allUsers = JSON.parse(localStorage.getItem("users")) || [];
   };
 
   return (
     <div>
       <h1>Signup</h1>
-      <form action="" onSubmit={handleSignUp}>
-        <label htmlFor="">
-          Username
-          <input type="text" onChange={(e) => setUsername(e.target.value)} />
-        </label>
-        <br />
-        <label htmlFor="">
-          Email
-          <input type="email" onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <br />
-        <label htmlFor="">
-          Password
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <button>Signup</button>
-      </form>
+      {signUp ? (
+        <p>Signup successful!</p>
+      ) : (
+        <form action="" onSubmit={handleSignUp}>
+          <label htmlFor="">
+            Username
+            <input type="text" onChange={(e) => setUsername(e.target.value)} />
+          </label>
+          <br />
+          <label htmlFor="">
+            Email
+            <input type="email" onChange={(e) => setEmail(e.target.value)} />
+          </label>
+          <br />
+          <label htmlFor="">
+            Password
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          <button>Signup</button>
+        </form>
+      )}
     </div>
   );
 };

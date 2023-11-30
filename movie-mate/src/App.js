@@ -4,10 +4,12 @@ import MovieList from './pages/MovieList';
 import FavoritesPage from './pages/FavoritesPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div className="App">
+      <Navbar />
       <Routes>
         <Route path='' element={<MovieList />} />
         <Route path='favorites' element={<FavoritesPage />} />
