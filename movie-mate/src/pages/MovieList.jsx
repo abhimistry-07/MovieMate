@@ -53,11 +53,11 @@ const MovieList = () => {
                 style={{ width: "100%" }}
               />
               <p key={movie.imdbID}>{movie.Title}</p>
-              <AddToFavourite
-                movie={movie}
-                onAddToFavorites={handleAddToFavorites}
-              />
             </div>
+            <AddToFavourite
+              movie={movie}
+              onAddToFavorites={handleAddToFavorites}
+            />
           </div>
         ))}
       </div>
