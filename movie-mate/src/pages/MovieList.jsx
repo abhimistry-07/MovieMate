@@ -8,17 +8,30 @@ const MovieList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [sort, setSort] = useState("");
 
   // console.log(movies);
 
   useEffect(() => {
-    const searchMovies = async () => {
+    const searchAndSortMovies = async () => {
       const data = await fetchMovies(searchQuery);
-      setMovies(data);
+      const sortedMovies = sortMovies(data, sort);
+      setMovies(sortedMovies);
     };
 
-    searchMovies();
-  }, [searchQuery]);
+    searchAndSortMovies();
+  }, [searchQuery, sort]);
+
+  const sortMovies = (moviesToSort, criteria) => {
+    switch (criteria) {
+      case "year":
+        return [...moviesToSort].sort((a, b) => a.Year - b.Year);
+      case "rating":
+        return [...moviesToSort].sort((a, b) => b.imdbRating - a.imdbRating);
+      default:
+        return moviesToSort;
+    }
+  };
 
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
@@ -33,6 +46,10 @@ const MovieList = () => {
     setFavorites((prevMovies) => [...prevMovies, movie]);
   };
 
+  const handleSortChange = (e) => {
+    setSort(e.target.value);
+  };
+
   console.log(favorites, "favorites >>>>");
 
   return (
@@ -43,7 +60,7 @@ const MovieList = () => {
         value={searchQuery}
         onChange={handleInput}
       />
-      <div>
+      {/* <div>
         {movies.map((movie) => (
           <div key={movie.imdbID} style={{ width: "12px" }}>
             <div onClick={() => handleMovieClick(movie)}>
@@ -60,7 +77,33 @@ const MovieList = () => {
             />
           </div>
         ))}
-      </div>
+      </div> */}
+      <label>
+        Sort by:
+        <select onChange={handleSortChange} value={sort}>
+          <option value="">Select</option>
+          <option value="year">Year</option>
+          <option value="rating">Rating</option>
+        </select>
+      </label>
+      <ul>
+        {movies.map((movie) => (
+          <div key={movie.imdbID} style={{ width: "12px" }}>
+            <div onClick={() => handleMovieClick(movie)}>
+              <img
+                src={movie.Poster}
+                alt={movie.Title}
+                style={{ width: "100%" }}
+              />
+              <p key={movie.imdbID}>{movie.Title}</p>
+            </div>
+            <AddToFavourite
+              movie={movie}
+              onAddToFavorites={handleAddToFavorites}
+            />
+          </div>
+        ))}
+      </ul>
       {/* {selectedMovie == null ? (
         <div>
           {movies.map((movie) => (
@@ -85,13 +128,5 @@ const MovieList = () => {
     </div>
   );
 };
-
-// {
-//     "Title": "Spider-Man",
-//     "Year": "2002",
-//     "imdbID": "tt0145487",
-//     "Type": "movie",
-//     "Poster": "https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_SX300.jpg"
-// },
 
 export default MovieList;

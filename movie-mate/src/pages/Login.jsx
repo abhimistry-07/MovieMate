@@ -22,7 +22,7 @@ const Login = () => {
       let userExists = allUsers.find((user) => {
         return (
           user.email === email &&
-          +user.password == password &&
+          user.password == password &&
           user.username &&
           user.favMovies
         );

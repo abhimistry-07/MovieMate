@@ -17,7 +17,7 @@ const FavoritesPage = () => {
     setLogedInUser(logedInUser);
     setAllUsersData(allUsersData);
     setFavorites(findLoggedInUserData.favMovies);
-  }, [favorites]);
+  }, []);
 
   const handleRemoveFromFav = (movieId) => {
     const findLoggedInUserData = allUsersData.find(
@@ -29,6 +29,8 @@ const FavoritesPage = () => {
     );
 
     findLoggedInUserData.favMovies = updatedFavorites;
+
+    setFavorites(findLoggedInUserData.favMovies);
 
     localStorage.setItem("users", JSON.stringify(allUsersData));
   };
