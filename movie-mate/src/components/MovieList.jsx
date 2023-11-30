@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { fetchMovies } from "../utils/api";
+import MovieDetails from "./MovieDetails";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   console.log(movies);
 
@@ -16,19 +18,38 @@ const MovieList = () => {
     searchMovies();
   }, [searchQuery]);
 
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie);
+  };
+
+  const handleInput = (e) => {
+    setSearchQuery(e.target.value);
+    setSelectedMovie(null);
+  };
+
+  // console.log(selectedMovie, ">>>>");
+
   return (
     <div>
       <input
         type="text"
         placeholder="Search for movies"
         value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={handleInput}
       />
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.imdbID}>{movie.Title}</li>
-        ))}
-      </ul>
+      {selectedMovie == null ? (
+        <ul>
+          {movies.map((movie) => (
+            <li onClick={() => handleMovieClick(movie)} key={movie.imdbID}>
+              {movie.Title}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <MovieDetails
+          movie={selectedMovie}
+        />
+      )}
     </div>
   );
 };
