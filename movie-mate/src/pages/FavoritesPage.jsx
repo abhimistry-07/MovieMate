@@ -10,6 +10,14 @@ const FavoritesPage = () => {
 
   console.log(favorites, ">>>>>>>>>");
 
+  const handleRempveFromFav = (movieId) => {
+    const updatedFavorites = favorites.filter(
+      (movie) => movie.imdbID !== movieId
+    );
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
+
   return (
     <div>
       <h1>Favorites</h1>
@@ -22,6 +30,9 @@ const FavoritesPage = () => {
             <p>Released: {favMovie.Released}</p>
             <img src={favMovie.Poster} alt={favMovie.Title} />
             <p>{favMovie.Plot}</p>
+            <button onClick={() => handleRempveFromFav(favMovie.imdbID)}>
+              Remove from Favorites
+            </button>
           </div>
         ))}
       </div>
