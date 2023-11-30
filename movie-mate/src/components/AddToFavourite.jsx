@@ -1,18 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const AddToFavourite = ({ movie, onAddToFavorites }) => {
-  useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    localStorage.setItem("favorites", JSON.stringify(storedFavorites));
-  }, []);
-
   const handleAddToFavorites = () => {
     onAddToFavorites(movie);
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    localStorage.setItem(
-      "favorites",
-      JSON.stringify([...storedFavorites, movie])
+
+    const logedInUser = JSON.parse(localStorage.getItem("logedInUser")) || [];
+
+    const allUsersData = JSON.parse(localStorage.getItem("users"));
+
+    const findLoggedInUserData = allUsersData.find(
+      (user) => user.email === logedInUser.email
     );
+
+    findLoggedInUserData.favMovies.push(movie);
+
+    localStorage.setItem("users", JSON.stringify(allUsersData));
+
+    // console.log(findLoggedInUserData.favMovies, " findLoggedInUserData >>>>>>");
   };
 
   return (

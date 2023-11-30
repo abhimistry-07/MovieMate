@@ -11,10 +11,11 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path='' element={<MovieList />} />
-        <Route path='favorites' element={<FavoritesPage />} />
-        <Route path='login' element={<Login />} />
-        <Route path='signup' element={<Signup />} />
+        <Route path='/' element={<MovieList />} />
+        <Route path='/favorites' element={<FavoritesPage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='*' element={<h1>No page found</h1>} />
       </Routes>
     </div>
   );

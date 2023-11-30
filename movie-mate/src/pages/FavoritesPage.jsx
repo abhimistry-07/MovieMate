@@ -2,20 +2,35 @@ import React, { useState, useEffect } from "react";
 
 const FavoritesPage = () => {
   const [favorites, setFavorites] = useState([]);
+  const [logedInUser, setLogedInUser] = useState("");
+  const [allUsersData, setAllUsersData] = useState([]);
 
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(storedFavorites);
-  }, []);
+    const logedInUser = JSON.parse(localStorage.getItem("logedInUser")) || [];
 
-  console.log(favorites, ">>>>>>>>>");
+    const allUsersData = JSON.parse(localStorage.getItem("users"));
 
-  const handleRempveFromFav = (movieId) => {
-    const updatedFavorites = favorites.filter(
+    const findLoggedInUserData = allUsersData.find(
+      (user) => user.email === logedInUser.email
+    );
+
+    setLogedInUser(logedInUser);
+    setAllUsersData(allUsersData);
+    setFavorites(findLoggedInUserData.favMovies);
+  }, [favorites]);
+
+  const handleRemoveFromFav = (movieId) => {
+    const findLoggedInUserData = allUsersData.find(
+      (user) => user.email === logedInUser.email
+    );
+
+    const updatedFavorites = findLoggedInUserData.favMovies?.filter(
       (movie) => movie.imdbID !== movieId
     );
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+
+    findLoggedInUserData.favMovies = updatedFavorites;
+
+    localStorage.setItem("users", JSON.stringify(allUsersData));
   };
 
   return (
@@ -30,7 +45,7 @@ const FavoritesPage = () => {
             <p>Released: {favMovie.Released}</p>
             <img src={favMovie.Poster} alt={favMovie.Title} />
             <p>{favMovie.Plot}</p>
-            <button onClick={() => handleRempveFromFav(favMovie.imdbID)}>
+            <button onClick={() => handleRemoveFromFav(favMovie.imdbID)}>
               Remove from Favorites
             </button>
           </div>

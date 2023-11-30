@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -6,6 +7,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [allUsers, setAllUsers] = useState([]);
   const [signUp, setSignup] = useState(false);
+
+  const navigate = useNavigate();
 
   const newUser = {
     username,
@@ -40,6 +43,7 @@ const Signup = () => {
       if (!userName && !userEmail) {
         localStorage.setItem("users", JSON.stringify([...allUsers, newUser]));
         setSignup(true);
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
