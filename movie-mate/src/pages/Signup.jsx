@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import zxcvbn from "zxcvbn";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -8,8 +9,17 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [allUsers, setAllUsers] = useState([]);
   const [signUp, setSignup] = useState(false);
-
+  const [passwordStrength, setPasswordStrength] = useState({
+    score: 0,
+    feedback: { warning: "", suggestions: [] },
+  });
   const navigate = useNavigate();
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    const strength = zxcvbn(e.target.value);
+    setPasswordStrength(strength);
+  };
 
   const newUser = {
     username,
@@ -72,8 +82,24 @@ const Signup = () => {
             Password
             <input
               type="password"
-              onChange={(e) => setPassword(e.target.value)}
+              // onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
             />
+            <div>
+              Strength: {passwordStrength.score} / 4
+              {passwordStrength.feedback.warning && (
+                <p>{passwordStrength.feedback.warning}</p>
+              )}
+              {passwordStrength.feedback.suggestions.length > 0 && (
+                <ul>
+                  {passwordStrength.feedback.suggestions.map(
+                    (suggestion, index) => (
+                      <li key={index}>{suggestion}</li>
+                    )
+                  )}
+                </ul>
+              )}
+            </div>
           </label>
           <button>Signup</button>
         </form>
