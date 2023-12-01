@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchMovies } from "../utils/api";
 import MovieDetails from "./MovieDetails";
 import AddToFavourite from "../components/AddToFavourite";
+import styled from "styled-components";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -50,35 +51,18 @@ const MovieList = () => {
     setSort(e.target.value);
   };
 
-  console.log(favorites, "favorites >>>>");
+  // console.log(favorites, "favorites >>>>");
 
   return (
-    <div>
+    <Container>
       <input
+        className="searchBar"
         type="text"
         placeholder="Search for movies"
         value={searchQuery}
         onChange={handleInput}
       />
-      {/* <div>
-        {movies.map((movie) => (
-          <div key={movie.imdbID} style={{ width: "12px" }}>
-            <div onClick={() => handleMovieClick(movie)}>
-              <img
-                src={movie.Poster}
-                alt={movie.Title}
-                style={{ width: "100%" }}
-              />
-              <p key={movie.imdbID}>{movie.Title}</p>
-            </div>
-            <AddToFavourite
-              movie={movie}
-              onAddToFavorites={handleAddToFavorites}
-            />
-          </div>
-        ))}
-      </div> */}
-      <label>
+      <label className="sortLabel">
         Sort by:
         <select onChange={handleSortChange} value={sort}>
           <option value="">Select</option>
@@ -86,14 +70,14 @@ const MovieList = () => {
           <option value="rating">Rating</option>
         </select>
       </label>
-      <ul>
+      <div className="movieGrid">
         {movies.map((movie) => (
-          <div key={movie.imdbID} style={{ width: "12px" }}>
+          <div className="movieCard" key={movie.imdbID}>
             <div onClick={() => handleMovieClick(movie)}>
               <img
                 src={movie.Poster}
                 alt={movie.Title}
-                style={{ width: "100%" }}
+                // style={{ width: "100%" }}
               />
               <p key={movie.imdbID}>{movie.Title}</p>
             </div>
@@ -103,7 +87,7 @@ const MovieList = () => {
             />
           </div>
         ))}
-      </ul>
+      </div>
       {/* {selectedMovie == null ? (
         <div>
           {movies.map((movie) => (
@@ -125,8 +109,51 @@ const MovieList = () => {
           onAddToFavorites={handleAddToFavorites}
         />
       )}
-    </div>
+    </Container>
   );
 };
 
 export default MovieList;
+
+const Container = styled.div`
+  max-width: 80%;
+  margin: auto;
+  padding: 20px;
+
+  .searchBar {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .sortLabel {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .movieGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .movieCard {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+`;
