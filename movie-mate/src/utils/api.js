@@ -10,3 +10,15 @@ export const fetchMovies = async (searchQuery) => {
         return [];
     }
 };
+
+export const fetchMovieData = async (imdbID) => {
+    try {
+        const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${imdbID}`);
+        const movieData = await response.json();
+        return movieData;
+    } catch (error) {
+        console.error('Error fetching movie data:', error);
+        return null;
+    }
+};
+

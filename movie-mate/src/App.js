@@ -5,6 +5,7 @@ import FavoritesPage from './pages/FavoritesPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
+import MovieDetails from './pages/MovieDetails';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='*' element={<h1>No page found</h1>} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
       </Routes>
     </div>
   );

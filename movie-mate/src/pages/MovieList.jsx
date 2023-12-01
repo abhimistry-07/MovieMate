@@ -3,6 +3,7 @@ import { fetchMovies } from "../utils/api";
 import MovieDetails from "./MovieDetails";
 import AddToFavourite from "../components/AddToFavourite";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -73,14 +74,17 @@ const MovieList = () => {
       <div className="movieGrid">
         {movies.map((movie) => (
           <div className="movieCard" key={movie.imdbID}>
-            <div onClick={() => handleMovieClick(movie)}>
-              <img
-                src={movie.Poster}
-                alt={movie.Title}
-                // style={{ width: "100%" }}
-              />
+            <Link
+              to={{
+                pathname: `/movie/${movie.imdbID}`,
+                query: handleAddToFavorites,
+              }}
+            >
+              <img src={movie.Poster} alt={movie.Title} />
               <p key={movie.imdbID}>{movie.Title}</p>
-            </div>
+            </Link>
+            {/* <div onClick={() => handleMovieClick(movie)}> */}
+            {/* </div> */}
             <AddToFavourite
               movie={movie}
               onAddToFavorites={handleAddToFavorites}
@@ -88,32 +92,37 @@ const MovieList = () => {
           </div>
         ))}
       </div>
-      {/* {selectedMovie == null ? (
-        <div>
-          {movies.map((movie) => (
-            <div onClick={() => handleMovieClick(movie)}>
-              <img src={movie.Poster} alt={movie.Title} />
-              <p key={movie.imdbID}>{movie.Title}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <MovieDetails
-          movie={selectedMovie}
-          onAddToFavorites={handleAddToFavorites}
-        />
-      )} */}
-      {selectedMovie !== null && (
-        <MovieDetails
-          movie={selectedMovie}
-          onAddToFavorites={handleAddToFavorites}
-        />
-      )}
     </Container>
   );
 };
 
 export default MovieList;
+
+{
+  /* {selectedMovie == null ? (
+  <div>
+    {movies.map((movie) => (
+      <div onClick={() => handleMovieClick(movie)}>
+        <img src={movie.Poster} alt={movie.Title} />
+        <p key={movie.imdbID}>{movie.Title}</p>
+      </div>
+    ))}
+  </div>
+) : (
+  <MovieDetails
+    movie={selectedMovie}
+    onAddToFavorites={handleAddToFavorites}
+  />
+)} */
+}
+{
+  /* {selectedMovie !== null && (
+  <MovieDetails
+    movie={selectedMovie}
+    onAddToFavorites={handleAddToFavorites}
+  />
+)} */
+}
 
 const Container = styled.div`
   max-width: 80%;
