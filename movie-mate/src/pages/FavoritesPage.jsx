@@ -35,6 +35,8 @@ const FavoritesPage = () => {
     setFavorites(findLoggedInUserData.favMovies);
 
     localStorage.setItem("users", JSON.stringify(allUsersData));
+
+    alert("Movie succesfully removed!");
   };
 
   return (

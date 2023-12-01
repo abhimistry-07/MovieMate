@@ -17,6 +17,7 @@ const AddToFavourite = ({ movie, onAddToFavorites }) => {
 
     localStorage.setItem("users", JSON.stringify(allUsersData));
 
+    alert("Movie added to favourites!");
     // console.log(findLoggedInUserData.favMovies, " findLoggedInUserData >>>>>>");
   };
 
