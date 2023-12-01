@@ -40,26 +40,32 @@ const FavoritesPage = () => {
   return (
     <FavContainer>
       <h1>Favorites</h1>
-      <div className="movieGrid">
-        {favorites?.map((favMovie) => (
-          <div key={favMovie.imdbID} className="movieCard">
-            <Link
-              className="link"
-              to={{
-                pathname: `/movie/${favMovie.imdbID}`,
-              }}
-            >
-              <img src={favMovie.Poster} alt={favMovie.Title} />
-              <h4 key={favMovie.imdbID}>{favMovie.Title}</h4>
-            </Link>
-            <button
-              className="removeBtn"
-              onClick={() => handleRemoveFromFav(favMovie.imdbID)}
-            >
-              Remove from Favorites
-            </button>
+      <div className="">
+        {logedInUser == "" ? (
+          <h1>Login First</h1>
+        ) : (
+          <div className="movieGrid">
+            {favorites?.map((favMovie) => (
+              <div key={favMovie.imdbID} className="movieCard">
+                <Link
+                  className="link"
+                  to={{
+                    pathname: `/movie/${favMovie.imdbID}`,
+                  }}
+                >
+                  <img src={favMovie.Poster} alt={favMovie.Title} />
+                  <h4 key={favMovie.imdbID}>{favMovie.Title}</h4>
+                </Link>
+                <button
+                  className="removeBtn"
+                  onClick={() => handleRemoveFromFav(favMovie.imdbID)}
+                >
+                  Remove from Favorites
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </FavContainer>
   );

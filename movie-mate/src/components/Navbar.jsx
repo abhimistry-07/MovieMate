@@ -27,6 +27,13 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  // const handleFavClick = () => {
+  //   if (!isLogedIn) {
+  //     alert("Login First");
+  //     navigate("/login");
+  //   }
+  // };
+
   return (
     <div>
       <NAV className="nav">
