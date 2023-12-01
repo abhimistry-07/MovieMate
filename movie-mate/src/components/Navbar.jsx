@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import logo from "../assets/Logo.jpg";
 
 const Navbar = () => {
   const [isHidden, setIsHidden] = useState(false);
@@ -13,7 +14,7 @@ const Navbar = () => {
     <div>
       <NAV class="nav">
         <a href="/" class="logo">
-          logo
+          <img src={logo} alt="" />
         </a>
 
         <div className="hamburger" onClick={handleClick}>

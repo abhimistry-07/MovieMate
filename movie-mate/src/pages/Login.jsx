@@ -44,7 +44,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <LoginContainer>
       <form action="" onSubmit={handleLogin}>
         <h1>Login</h1>
         <label htmlFor="">
@@ -61,8 +61,63 @@ const Login = () => {
         </label>
         <button>Login</button>
       </form>
-    </div>
+    </LoginContainer>
   );
 };
 
 export default Login;
+
+const LoginContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  background-color: #f8f9fa;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    /* color: #4a4a4a; */
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #4a4a4a;
+  }
+
+  input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    color: #495057;
+  }
+
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+`;
