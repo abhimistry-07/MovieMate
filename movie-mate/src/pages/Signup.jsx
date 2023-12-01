@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -27,8 +28,8 @@ const Signup = () => {
   const handleSignUp = (e) => {
     e.preventDefault();
     try {
-      let userName = allUsers.find((user) => user.username == username);
-      let userEmail = allUsers.find((user) => user.email == email);
+      let userName = allUsers?.find((user) => user.username == username);
+      let userEmail = allUsers?.find((user) => user.email == email);
 
       if (userName) {
         alert("UserName already exists");
@@ -52,11 +53,11 @@ const Signup = () => {
 
   return (
     <div>
-      <h1>Signup</h1>
       {signUp ? (
         <p>Signup successful!</p>
       ) : (
         <form action="" onSubmit={handleSignUp}>
+          <h1>Signup</h1>
           <label htmlFor="">
             Username
             <input type="text" onChange={(e) => setUsername(e.target.value)} />

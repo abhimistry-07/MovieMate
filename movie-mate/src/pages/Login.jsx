@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const Login = () => {
     try {
       e.preventDefault();
 
-      let userExists = allUsers.find((user) => {
+      let userExists = allUsers?.find((user) => {
         return (
           user.email === email &&
           user.password == password &&
@@ -44,8 +45,8 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login</h1>
       <form action="" onSubmit={handleLogin}>
+        <h1>Login</h1>
         <label htmlFor="">
           Email
           <input type="email" onChange={(e) => setEmail(e.target.value)} />

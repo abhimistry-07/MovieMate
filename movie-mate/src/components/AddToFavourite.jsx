@@ -8,7 +8,7 @@ const AddToFavourite = ({ movie, onAddToFavorites }) => {
 
     const allUsersData = JSON.parse(localStorage.getItem("users"));
 
-    const findLoggedInUserData = allUsersData.find(
+    const findLoggedInUserData = allUsersData?.find(
       (user) => user.email === logedInUser.email
     );
 

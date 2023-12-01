@@ -10,21 +10,21 @@ const FavoritesPage = () => {
 
     const allUsersData = JSON.parse(localStorage.getItem("users"));
 
-    const findLoggedInUserData = allUsersData.find(
+    const findLoggedInUserData = allUsersData?.find(
       (user) => user.email === logedInUser.email
     );
 
     setLogedInUser(logedInUser);
     setAllUsersData(allUsersData);
-    setFavorites(findLoggedInUserData.favMovies);
+    setFavorites(findLoggedInUserData?.favMovies);
   }, []);
 
   const handleRemoveFromFav = (movieId) => {
-    const findLoggedInUserData = allUsersData.find(
+    const findLoggedInUserData = allUsersData?.find(
       (user) => user.email === logedInUser.email
     );
 
-    const updatedFavorites = findLoggedInUserData.favMovies?.filter(
+    const updatedFavorites = findLoggedInUserData?.favMovies?.filter(
       (movie) => movie.imdbID !== movieId
     );
 
@@ -39,7 +39,7 @@ const FavoritesPage = () => {
     <div>
       <h1>Favorites</h1>
       <div>
-        {favorites.map((favMovie) => (
+        {favorites?.map((favMovie) => (
           <div key={favMovie.imdbID}>
             <h2>{favMovie.Title}</h2>
             <p>Year: {favMovie.Year}</p>
