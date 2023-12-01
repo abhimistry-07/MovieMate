@@ -66,26 +66,32 @@ const MovieList = () => {
           <option value="rating">Rating</option>
         </select>
       </label>
-      <div className="movieGrid">
-        {movies.map((movie) => (
-          <div className="movieCard" key={movie.imdbID}>
-            <Link
-              className="link"
-              to={{
-                pathname: `/movie/${movie.imdbID}`,
-                query: handleAddToFavorites,
-              }}
-            >
-              <img src={movie.Poster} alt={movie.Title} />
-              <h4 key={movie.imdbID}>{movie.Title}</h4>
-            </Link>
-            <AddToFavourite
-              movie={movie}
-              onAddToFavorites={handleAddToFavorites}
-            />
-          </div>
-        ))}
-      </div>
+      {searchQuery ? (
+        <div className="movieGrid">
+          {movies.map((movie) => (
+            <div className="movieCard" key={movie.imdbID}>
+              <Link
+                className="link"
+                to={{
+                  pathname: `/movie/${movie.imdbID}`,
+                  query: handleAddToFavorites,
+                }}
+              >
+                <img src={movie.Poster} alt={movie.Title} />
+                <h4 key={movie.imdbID}>{movie.Title}</h4>
+              </Link>
+              <AddToFavourite
+                movie={movie}
+                onAddToFavorites={handleAddToFavorites}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="searchHere">
+          <h1>Search Movies</h1>
+        </div>
+      )}
     </Container>
   );
 };
@@ -97,6 +103,19 @@ const Container = styled.div`
   margin: auto;
   padding: 20px;
   /* background-color: #f8f9fa; */
+
+  .searchHere {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #333;
+    }
+  }
 
   .searchBar {
     width: 80%;

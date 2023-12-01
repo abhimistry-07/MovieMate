@@ -1,13 +1,30 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/Logo.jpg";
 
 const Navbar = () => {
   const [isHidden, setIsHidden] = useState(false);
+  const [isLogedIn, setIsLogedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getLogedINUser =
+      JSON.parse(localStorage.getItem("logedInUser")) || {};
+
+    if (Object.keys(getLogedINUser).length !== 0) {
+      setIsLogedIn(true);
+    }
+  }, [isLogedIn]);
 
   const handleClick = () => {
     setIsHidden(!isHidden);
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem("logedInUser");
+    setIsLogedIn(false);
+    navigate("/login");
   };
 
   return (
@@ -23,7 +40,6 @@ const Navbar = () => {
             <img src={logo} alt="" className="logo" />
           </a>
         </div>
-
         <div className={`nav__link ${isHidden ? "hide" : ""}`}>
           <a href="/" className="logo1">
             <img src={logo} alt="" className="logo1" />
@@ -31,7 +47,9 @@ const Navbar = () => {
           <a href="/">Home</a>
           <a href="/favorites">Favorites</a>
           <a href="/signup">Signup</a>
-          <a href="/login">Login</a>
+          <a href="/login" onClick={handleLogOut}>
+            {isLogedIn ? "Logout" : "Login"}
+          </a>
         </div>
       </NAV>
     </div>
