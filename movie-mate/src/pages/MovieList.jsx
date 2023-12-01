@@ -126,21 +126,21 @@ const Container = styled.div`
     border-color: #007bff;
   }
 
-  /* .movieGrid {
+  .movieGrid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     align-items: center;
-  } */
+  }
 
-  .movieGrid {
+  /* .movieGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 20px;
     justify-content: center;
     align-items: center;
-  }
+  } */
 
   .movieCard {
     display: flex;
