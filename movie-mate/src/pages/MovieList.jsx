@@ -126,32 +126,24 @@ const Container = styled.div`
     border-color: #007bff;
   }
 
-  .movieGrid {
+  /* .movieGrid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     align-items: center;
-  }
+  } */
 
-  /* .movieGrid {
+  .movieGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 20px;
     justify-content: center;
     align-items: center;
-  } */
-
-  .movieCard {
-    display: flex;
-    flex-direction: column;
   }
 
   .movieCard {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  }
-
-  .movieCard {
     width: 200px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -176,5 +168,19 @@ const Container = styled.div`
 
   .link {
     text-decoration: none;
+  }
+
+  @media (max-width: 600px) {
+    .movieGrid {
+      justify-items: center;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 600px) and (max-width: 900px) {
+    .movieGrid {
+      justify-items: center;
+      align-items: center;
+    }
   }
 `;

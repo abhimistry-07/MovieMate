@@ -13,17 +13,21 @@ const Navbar = () => {
   return (
     <div>
       <NAV className="nav">
-        <a href="/" className="logo">
-          <img src={logo} alt="" />
-        </a>
-
         <div className="hamburger" onClick={handleClick}>
-          <span className="line"></span>
-          <span className="line"></span>
-          <span className="line"></span>
+          <div>
+            <span className="line"></span>
+            <span className="line"></span>
+            <span className="line"></span>
+          </div>
+          <a href="/" className="logo">
+            <img src={logo} alt="" className="logo" />
+          </a>
         </div>
 
         <div className={`nav__link ${isHidden ? "hide" : ""}`}>
+          <a href="/" className="logo1">
+            <img src={logo} alt="" className="logo1" />
+          </a>
           <a href="/">Home</a>
           <a href="/favorites">Favorites</a>
           <a href="/signup">Signup</a>
@@ -66,12 +70,18 @@ const NAV = styled.nav`
   .logo {
     font-size: 1.8rem;
     color: #007bff;
-    padding-left: 20px;
+    padding-left: 15%;
   }
 
   .hamburger {
     padding-right: 20px;
     cursor: pointer;
+    padding-top: 15px;
+  }
+
+  .hamburger {
+    display: flex;
+    align-items: center;
   }
 
   .hamburger .line {
@@ -97,6 +107,10 @@ const NAV = styled.nav`
     padding: 10px 0;
   }
 
+  .nav__link a:first-child:hover {
+    background-color: #ffffff;
+  }
+
   .nav__link a:hover {
     background-color: #007bff;
     color: #fff;
@@ -106,22 +120,32 @@ const NAV = styled.nav`
     display: none;
   }
 
+  .logo1 {
+    display: none;
+  }
+
   @media screen and (min-width: 600px) {
     .nav__link {
       display: block;
       position: static;
       width: auto;
-      margin-right: 20px;
+      /* margin-right: 20px; */
       background: none;
     }
 
     .nav__link a {
       display: inline-block;
       padding: 15px 20px;
+      vertical-align: middle;
     }
 
     .hamburger {
       display: none;
+    }
+
+    .logo1 {
+      display: flex;
+      vertical-align: middle;
     }
   }
 `;

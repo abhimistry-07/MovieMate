@@ -38,6 +38,7 @@ const Button = styled.button`
   cursor: pointer;
   font-size: 1rem;
   margin-top: 10px;
+  width: 100%;
 
   button:hover {
     background-color: #0056b3;

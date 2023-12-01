@@ -93,10 +93,6 @@ const FavContainer = styled.div`
   } */
 
   .movieCard {
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    flex-direction: column;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 200px;
     border: 1px solid #ddd;
