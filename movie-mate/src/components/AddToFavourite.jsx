@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 
 const AddToFavourite = ({ movie, onAddToFavorites }) => {
   const handleAddToFavorites = () => {
@@ -20,12 +21,25 @@ const AddToFavourite = ({ movie, onAddToFavorites }) => {
   };
 
   return (
-    <div>
-      <button onClick={() => handleAddToFavorites(movie)}>
-        Add to Favorites
-      </button>
-    </div>
+    <Button onClick={() => handleAddToFavorites(movie)}>
+      Add to Favorites
+    </Button>
   );
 };
 
 export default AddToFavourite;
+
+const Button = styled.button`
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 10px;
+
+  button:hover {
+    background-color: #0056b3;
+  }
+`;

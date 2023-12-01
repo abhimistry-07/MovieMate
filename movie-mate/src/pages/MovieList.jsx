@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { fetchMovies } from "../utils/api";
-import MovieDetails from "./MovieDetails";
 import AddToFavourite from "../components/AddToFavourite";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -8,7 +7,7 @@ import { Link } from "react-router-dom";
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  // const [selectedMovie, setSelectedMovie] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [sort, setSort] = useState("");
 
@@ -35,13 +34,9 @@ const MovieList = () => {
     }
   };
 
-  const handleMovieClick = (movie) => {
-    setSelectedMovie(movie);
-  };
-
   const handleInput = (e) => {
     setSearchQuery(e.target.value);
-    setSelectedMovie(null);
+    // setSelectedMovie(null);
   };
 
   const handleAddToFavorites = (movie) => {
@@ -75,16 +70,15 @@ const MovieList = () => {
         {movies.map((movie) => (
           <div className="movieCard" key={movie.imdbID}>
             <Link
+              className="link"
               to={{
                 pathname: `/movie/${movie.imdbID}`,
                 query: handleAddToFavorites,
               }}
             >
               <img src={movie.Poster} alt={movie.Title} />
-              <p key={movie.imdbID}>{movie.Title}</p>
+              <h4 key={movie.imdbID}>{movie.Title}</h4>
             </Link>
-            {/* <div onClick={() => handleMovieClick(movie)}> */}
-            {/* </div> */}
             <AddToFavourite
               movie={movie}
               onAddToFavorites={handleAddToFavorites}
@@ -98,36 +92,11 @@ const MovieList = () => {
 
 export default MovieList;
 
-{
-  /* {selectedMovie == null ? (
-  <div>
-    {movies.map((movie) => (
-      <div onClick={() => handleMovieClick(movie)}>
-        <img src={movie.Poster} alt={movie.Title} />
-        <p key={movie.imdbID}>{movie.Title}</p>
-      </div>
-    ))}
-  </div>
-) : (
-  <MovieDetails
-    movie={selectedMovie}
-    onAddToFavorites={handleAddToFavorites}
-  />
-)} */
-}
-{
-  /* {selectedMovie !== null && (
-  <MovieDetails
-    movie={selectedMovie}
-    onAddToFavorites={handleAddToFavorites}
-  />
-)} */
-}
-
 const Container = styled.div`
   max-width: 80%;
   margin: auto;
   padding: 20px;
+  /* background-color: #f8f9fa; */
 
   .searchBar {
     width: 80%;
@@ -138,15 +107,48 @@ const Container = styled.div`
 
   .sortLabel {
     display: block;
+    align-items: center;
+    font-size: 16px;
+    color: #4a4a4a;
     margin-bottom: 10px;
   }
 
-  .movieGrid {
+  select {
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+    color: #495057;
+  }
+
+  select:hover {
+    border-color: #007bff;
+  }
+
+  /* .movieGrid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     align-items: center;
+  } */
+
+  .movieGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .movieCard {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movieCard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
 
   .movieCard {
@@ -164,5 +166,15 @@ const Container = styled.div`
       width: 100%;
       height: auto;
     }
+
+    h4 {
+      color: black;
+      margin: 10px;
+      text-align: center;
+    }
+  }
+
+  .link {
+    text-decoration: none;
   }
 `;
