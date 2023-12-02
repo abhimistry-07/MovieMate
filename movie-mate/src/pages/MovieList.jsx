@@ -10,6 +10,8 @@ const MovieList = () => {
   // const [selectedMovie, setSelectedMovie] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [sort, setSort] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
 
   // console.log(movies);
 
@@ -36,6 +38,7 @@ const MovieList = () => {
 
   const handleInput = (e) => {
     setSearchQuery(e.target.value);
+    setCurrentPage(1);
     // setSelectedMovie(null);
   };
 
@@ -45,7 +48,15 @@ const MovieList = () => {
 
   const handleSortChange = (e) => {
     setSort(e.target.value);
+    setCurrentPage(1);
   };
+
+  const indexOfLastMovie = currentPage * itemsPerPage;
+  const indexOfFirstMovie = indexOfLastMovie - itemsPerPage;
+  const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
+  const pagination = (pageNo) => setCurrentPage(pageNo);
+
+  // console.log(pagination);
 
   // console.log(favorites, "favorites >>>>");
 
@@ -68,7 +79,7 @@ const MovieList = () => {
       </label>
       {searchQuery ? (
         <div className="movieGrid">
-          {movies.map((movie) => (
+          {currentMovies.map((movie) => (
             <div className="movieCard" key={movie.imdbID}>
               <Link
                 className="link"
@@ -92,11 +103,44 @@ const MovieList = () => {
           <h1>Search Movies</h1>
         </div>
       )}
+      {movies.length > itemsPerPage && (
+        <Pagination>
+          {Array.from(
+            { length: Math.ceil(movies.length / itemsPerPage) },
+            (_, index) => (
+              <button
+                key={index}
+                onClick={() => pagination(index + 1)}
+                className={currentPage === index + 1 ? "active" : ""}
+              >
+                {index + 1}
+              </button>
+            )
+          )}
+        </Pagination>
+      )}
     </Container>
   );
 };
 
-export default MovieList;
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  button {
+    background-color: rgb(100, 181, 246);
+    color: white;
+    border: 1px solid rgb(100, 181, 246);
+    padding: 8px 16px;
+    margin: 0 4px;
+    cursor: pointer;
+  }
+
+  button.active {
+    background-color: rgb(13, 71, 161);
+  }
+`;
 
 const Container = styled.div`
   max-width: 80%;
@@ -203,3 +247,4 @@ const Container = styled.div`
     }
   }
 `;
+export default MovieList;
