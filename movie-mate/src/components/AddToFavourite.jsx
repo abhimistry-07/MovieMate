@@ -13,6 +13,15 @@ const AddToFavourite = ({ movie, onAddToFavorites }) => {
       (user) => user.email === logedInUser.email
     );
 
+    // let userName = allUsers?.find((user) => user.username == username);
+    const isMovieExists = findLoggedInUserData?.favMovies.find(
+      (currMovie) => currMovie.imdbID == movie.imdbID
+    );
+
+    if (isMovieExists) {
+      return alert("Movie already exists in favorites");
+    }
+
     findLoggedInUserData.favMovies.push(movie);
 
     localStorage.setItem("users", JSON.stringify(allUsersData));

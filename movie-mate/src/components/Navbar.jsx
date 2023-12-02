@@ -15,11 +15,15 @@ const Navbar = () => {
     if (Object.keys(getLogedINUser).length !== 0) {
       setIsLogedIn(true);
     }
+
+    setIsHidden(true);
   }, [isLogedIn]);
 
   const handleClick = () => {
     setIsHidden(!isHidden);
   };
+
+  // console.log(isHidden, ">>>>>>");
 
   const handleLogOut = () => {
     localStorage.removeItem("logedInUser");
@@ -95,7 +99,7 @@ const NAV = styled.nav`
   .logo {
     font-size: 1.8rem;
     color: #007bff;
-    padding-left: 15%;
+    padding-left: 20%;
   }
 
   .hamburger {
